@@ -2,11 +2,15 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { HttpClient } from '@angular/common/http';
 import { Cart } from '../interfaces/cart';
+import { environment } from 'src/environments/environment.development';
+import { ResponseApi } from '../interfaces/response-api';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+  private baseUrlApi: string = environment.baseUrlApi + 'Cart';
   cartData = new EventEmitter<Product[] | []>();
   constructor(private http: HttpClient) {}
 
@@ -34,35 +38,27 @@ export class CartService {
     }
   }
 
-  addToCart(cartData: Cart) {
-    return this.http.post('http://localhost:3000/cart', cartData);
+  addToCart(req: Cart): Observable<ResponseApi> {
+    return this.http.post<ResponseApi>(`${this.baseUrlApi}/Add`, req);
   }
-  getCartList(userId: number) {
-    return this.http
-      .get<Product[]>('http://localhost:3000/cart?userId=' + userId, {
-        observe: 'response',
-      })
-      .subscribe((result) => {
-        if (result && result.body) {
-          this.cartData.emit(result.body);
-        }
-      });
+
+  getCartList(userId: number): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.baseUrlApi}/${userId}`);
   }
-  removeToCart(cartId: number) {
-    return this.http.delete('http://localhost:3000/cart/' + cartId);
+
+  removeToCart(cartId: number): Observable<ResponseApi> {
+    return this.http.delete<ResponseApi>(`${this.baseUrlApi}/${cartId}`);
   }
-  currentCart() {
+
+  currentCart(): Observable<ResponseApi> {
     let userStore = localStorage.getItem('user');
     let userData = userStore && JSON.parse(userStore);
-    return this.http.get<Cart[]>(
+    return this.http.get<ResponseApi>(
       'http://localhost:3000/cart?userId=' + userData.id
     );
   }
-  deleteCartItems(cartId: number) {
-    return this.http
-      .delete('http://localhost:3000/cart/' + cartId)
-      .subscribe((result) => {
-        this.cartData.emit([]);
-      });
+
+  deleteCartItems(cartId: number): Observable<ResponseApi> {
+    return this.http.delete<ResponseApi>(`${this.baseUrlApi}/${cartId}`);
   }
 }

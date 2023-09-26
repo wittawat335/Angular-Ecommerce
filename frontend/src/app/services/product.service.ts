@@ -1,48 +1,48 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
+import { Observable } from 'rxjs';
+import { ResponseApi } from '../interfaces/response-api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  cartData = new EventEmitter<Product[] | []>();
+  private baseUrlApi: string = environment.baseUrlApi + 'Product';
   constructor(private http: HttpClient) {}
 
-  addProduct(data: Product) {
-    return this.http.post('http://localhost:3000/products', data);
+  getList(): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(this.baseUrlApi);
   }
 
-  productList() {
-    return this.http.get<Product[]>('http://localhost:3000/products');
+  getProduct(id: string): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.baseUrlApi}/${id}`);
   }
 
-  deleteProduct(id: number) {
-    return this.http.delete(`http://localhost:3000/products/${id}`);
+  addProduct(req: Product): Observable<ResponseApi> {
+    return this.http.post<ResponseApi>(`${this.baseUrlApi}/Add`, req);
   }
 
-  getProduct(id: string) {
-    return this.http.get<Product>(`http://localhost:3000/products/${id}`);
+  updateProduct(req: Product): Observable<ResponseApi> {
+    return this.http.put<ResponseApi>(`${this.baseUrlApi}/Update`, req);
   }
 
-  updateProduct(product: Product) {
-    return this.http.put<Product>(
-      `http://localhost:3000/products/${product.id}`,
-      product
-    );
+  deleteProduct(id: number): Observable<ResponseApi> {
+    return this.http.delete<ResponseApi>(`${this.baseUrlApi}/${id}`);
   }
 
-  popularProducts() {
-    return this.http.get<Product[]>('http://localhost:3000/products?_limit=3');
+  popularProducts(): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.baseUrlApi}?limit=3`);
   }
 
-  trendyProducts() {
-    return this.http.get<Product[]>('http://localhost:3000/products?_limit=8');
+  trendyProducts(): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.baseUrlApi}?limit=8`);
   }
 
-  searchProduct(query: string) {
-    return this.http.get<Product[]>(
-      `http://localhost:3000/products?q=${query}`
+  searchProduct(keyword: string): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(
+      `${this.baseUrlApi}/search/name?keyword=${keyword}`
     );
   }
 }
