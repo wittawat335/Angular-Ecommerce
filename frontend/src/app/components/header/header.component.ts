@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
   searchResult: undefined | Product[];
   cartItems = 0;
-  constructor(private route: Router) {}
+  constructor(private route: Router, private product: ProductService) {}
 
   ngOnInit(): void {
     this.route.events.subscribe((val: any) => {
