@@ -1,0 +1,15 @@
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Core.deps.json
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Core.dll
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Core.pdb
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Domain.dll
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Domain.pdb
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.csproj.AssemblyReference.cache
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.AssemblyInfoInputs.cache
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.AssemblyInfo.cs
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.csproj.CoreCompileInputs.cache
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.csproj.CopyComplete
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.dll
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\refint\Ecommerce.Core.dll
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.pdb
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Core\obj\Debug\net7.0\ref\Ecommerce.Core.dll
