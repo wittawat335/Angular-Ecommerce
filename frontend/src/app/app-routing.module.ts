@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/authen/login/login.component';
+import { RegisterComponent } from './components/authen/register/register.component';
+import { StockHomeComponent } from './components/stock/stock-home/stock-home.component';
+import { authGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  {
-    path: 'pages',
-    loadChildren: () =>
-      import('./components/layout/layout.module').then((m) => m.LayoutModule),
-    //canActivate: [AuthGuard], //form auth/auth.guard.ts
-  },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'stock', component: StockHomeComponent, canActivate: [authGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }, // for page not found
 ];
 
 @NgModule({
