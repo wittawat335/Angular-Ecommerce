@@ -232,7 +232,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\GitHub\\Angular-Ecommerce\\backend\\Ecommerce.Domain\\Ecommerce.Domain.csproj": {
+                "projectPath": "E:\\GitHub\\Angular-Ecommerce\\backend\\Ecommerce.Domain\\Ecommerce.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -244,6 +248,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
