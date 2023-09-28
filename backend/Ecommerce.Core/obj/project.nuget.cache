@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "koaUu9KSqrpHMMcQ679T/khNuPSyjVeymPlXu/2opB4inkavyZc0TrhG4ScAlrH8QHw0qcKx8aTkGVWppvTQHA==",
+  "dgSpecHash": "ueFsS2cOXE4A+/aBz1K9U9zj7F7eocpCNsdi/FkrYgKPPR7DPW37u+Enh/uhJtKdDMcQFsZ5fgGVwjj+qkJmiQ==",
   "success": true,
   "projectFilePath": "E:\\GitHub\\Angular-Ecommerce\\backend\\Ecommerce.Core\\Ecommerce.Core.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\witta\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\witta\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
-    "C:\\Users\\witta\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\witta\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
