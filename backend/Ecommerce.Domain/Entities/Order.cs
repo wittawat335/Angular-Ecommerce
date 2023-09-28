@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Ecommerce.Domain.Entities;
 
 public partial class Order
@@ -11,5 +13,9 @@ public partial class Order
 
     public int Quantity { get; set; }
 
-    public virtual Transaction Transaction { get; set; } = null!;
+    public string Status { get; set; }
+
+    public DateTime? CreateDate { get; set; }
+
+    public virtual Transaction Transaction { get; set; }
 }

@@ -1,28 +1,29 @@
 ﻿using Ecommerce.Core.AutpMapper;
+using Ecommerce.Core.Helper;
+using Ecommerce.Core.Services;
+using Ecommerce.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Core
 {
     public static class ServiceExtentions
     {
-        public static void AddCore(this IServiceCollection services, IConfiguration configuration)
+        public static void AddAppSetting(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
-            //services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+        }
+        public static void AddService(this IServiceCollection services)
+        {   //Scoped : จะถูกสร้างใหม่ทุกครั้งที่ Client Request (1 Connection = 1 Client Request)
             services.AddAutoMapper(typeof(AutoMapperProfile));
-            // Add Service
+            services.AddScoped<IAuthenService, AuthenService>();
             //services.AddTransient<IEmailService, EmailService>();
-            //services.AddScoped<IMasterService, MasterService>();
             //services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<ICommonService, CommonService>();
         }
 
         public static void AuthenticationConfig(this IServiceCollection services, IConfiguration configuration)

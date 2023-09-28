@@ -75,3 +75,6 @@ E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Inf
 E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Core.pdb
 E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Infrastructure.pdb
 E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Domain.pdb
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\AutoMapper.dll
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\GitHub\Angular-Ecommerce\backend\Ecommerce.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

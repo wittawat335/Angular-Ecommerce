@@ -1,11 +1,13 @@
-﻿using Ecommerce.Domain.Entities;
+﻿using Ecommerce.Core.DTOs;
+using Ecommerce.Core.Models;
+using Ecommerce.Domain.Entities;
 
 namespace Ecommerce.Core.Services.Interfaces
 {
     public interface IAuthenService
     {
-        Task<ResponseApi<LoginResponse>> Login(LoginRequest request);
-        Task<ResponseApi<LoginResponse>> Register(LoginRequest request);
-        Task<ResponseApi<LoginResponse>> GenerateToken(User user);
+        Task<Response<LoginResponse>> Login(LoginRequest request);
+        Task<Response<bool>> Register(RegisterRequest request);
+        Task<Response<LoginResponse>> GenerateToken(User user);
     }
 }

@@ -12,8 +12,8 @@ namespace Ecommerce.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AngularEcommerceContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("SqlServer")));
-            //services.AddSingleton<DapperContext>();
-            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //services.AddSingleton<DapperContext>(); // Singleton : ถูกสร้างแค่ครั้งแรกที่ถูกเรียก หลังจากนั้น Instance จะคงอยู่ตลอดไปจนกว่าเราจะปิดและเปิดระบบขึ้นมาใหม่
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>)); //Transient : ถูกสร้างใหม่ทุกครั้งที่มีการเรียกใช้งานภายในระบบ
         }
     }
 }

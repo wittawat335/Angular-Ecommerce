@@ -21,21 +21,23 @@ public partial class Transaction
 
     public decimal Change { get; set; }
 
-    public string OrderList { get; set; } = null!;
+    public string OrderList { get; set; }
 
-    public string PaymentType { get; set; } = null!;
+    public string PaymentType { get; set; }
 
-    public string? PaymentDetail { get; set; }
+    public string PaymentDetail { get; set; }
 
-    public string EmployeeId { get; set; } = null!;
+    public string EmployeeId { get; set; }
 
-    public string SellerId { get; set; } = null!;
+    public string SellerId { get; set; }
 
-    public string BuyerId { get; set; } = null!;
+    public string BuyerId { get; set; }
 
-    public string? Comment { get; set; }
+    public string Comment { get; set; }
 
     public DateTime? Timestamp { get; set; }
+
+    public string Status { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

@@ -102,15 +102,18 @@ namespace Ecommerce.Infrastructure.Repositories
         {
             return await _context.Set<T>().FindAsync(code);
         }
-        public async Task InsertAsync(T model)
+
+        public async Task<T> InsertAsync(T model)
         {
             await _context.Set<T>().AddAsync(model);
+            await SaveChangesAsync();
+            return model;
         }
+
         public async Task InsertListAsync(List<T> model)
         {
             await _context.Set<T>().AddRangeAsync(model);
         }
-
         #endregion
     }
 }
