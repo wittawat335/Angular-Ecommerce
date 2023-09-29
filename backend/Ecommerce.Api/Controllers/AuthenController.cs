@@ -1,8 +1,7 @@
 ﻿using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 
 namespace Ecommerce.Api.Controllers
 {
@@ -11,11 +10,21 @@ namespace Ecommerce.Api.Controllers
     public class AuthenController : ControllerBase
     {
         private readonly IAuthenService _service;
-
-        public AuthenController(IAuthenService service)
+        private readonly IWebHostEnvironment _environment;
+        public AuthenController(IAuthenService service, IWebHostEnvironment environment)
         {
             _service = service;
+            _environment = environment;
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        [Route("CheckEnvironment")]
+        public IActionResult CheckEnvironment()
+        {
+            return Content("Environment : " + _environment.EnvironmentName);
+        }
+
 
         [HttpPost]
         [Route("Login")]
