@@ -39,5 +39,13 @@ namespace Ecommerce.Api.Controllers
         {
             return Ok(await _service.Register(request));
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        [Route("AddPosition")]
+        public async Task<IActionResult> AddPosition([FromBody] PositionRequest request)
+        {
+            return Ok(await _service.AddPosition(request));
+        }
     }
 }

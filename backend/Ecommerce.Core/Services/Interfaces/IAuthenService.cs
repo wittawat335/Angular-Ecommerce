@@ -7,7 +7,8 @@ namespace Ecommerce.Core.Services.Interfaces
     public interface IAuthenService
     {
         Task<Response<LoginResponse>> Login(LoginRequest request);
-        Task<Response<bool>> Register(RegisterRequest request);
+        Task<Response<string>> Register(RegisterRequest request);
+        Task<Response<string>> AddPosition(PositionRequest request);
         Task<Response<LoginResponse>> GenerateToken(User user);
     }
 }

@@ -8,9 +8,11 @@ namespace Ecommerce.Core.AutpMapper
     {
         public AutoMapperProfile()
         {
+            CreateMap<PositionRequest, Position>();
             CreateMap<RegisterRequest, User>()
                 .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)));
             CreateMap<User, UserPosition>();
+
         }
     }
 }

@@ -5,7 +5,6 @@ using Ecommerce.Core.Models;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,25 +16,54 @@ namespace Ecommerce.Core.Services
     public class AuthenService : IAuthenService
     {
         private readonly IGenericRepository<User> _repository;
+        private readonly IGenericRepository<Position> _positionRepository;
         private readonly IGenericRepository<UserPosition> _upRepository;
         private readonly ICommonService _common;
         private readonly IMapper _mapper;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenService(
-            IGenericRepository<User> repository,
-            IGenericRepository<UserPosition> upRepository,
+        public AuthenService(IGenericRepository<User> repository, IGenericRepository<UserPosition> upRepository,
+            IGenericRepository<Position> positionRepository,
             ICommonService common,
             IMapper mapper,
             IOptions<JwtSettings> options)
         {
             _repository = repository;
             _upRepository = upRepository;
+            _positionRepository = positionRepository;
             _common = common;
             _mapper = mapper;
             _jwtSettings = options.Value;
         }
 
+        public async Task<Response<string>> AddPosition(PositionRequest request)
+        {
+            var response = new Response<string>();
+            try
+            {
+                var position = await _positionRepository.GetAsync(x => x.PositionName == request.PositionName);
+                if (position != null)
+                {
+                    response.IsSuccess = Constants.Status.False;
+                    response.Message = Constants.StatusMessage.DuplicatePosition;
+                }
+                else
+                {
+                    var positionResult = await _positionRepository.InsertAsync(_mapper.Map<Position>(request));
+                    if (positionResult != null)
+                    {
+                        response.IsSuccess = Constants.Status.True;
+                        response.Message = Constants.StatusMessage.AddSuccessfully;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.IsSuccess = Constants.Status.False;
+            }
+            return response;
+        }
         public async Task<Response<LoginResponse>> GenerateToken(User user)
         {
             var response = new Response<LoginResponse>();
@@ -48,18 +76,15 @@ namespace Ecommerce.Core.Services
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("UserId", user.UserId.ToString())
                     };
-                var roles = await _upRepository.GetListAsync(x => x.UserId == user.UserId && x.Status == "A");
+                var roles = await _upRepository.GetListAsync(x => x.UserId == user.UserId && x.Status == Constants.Status.Active);
                 var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, _common.GetPositionName(x.PositionId.ToString())));
                 claims.AddRange(roleClaims);
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(
-                   _jwtSettings.Issuer,
-                   _jwtSettings.Audience,
-                   claims,
-                   expires: DateTime.UtcNow.AddMinutes(10),
-                   signingCredentials: signIn);
+                var token = new JwtSecurityToken(_jwtSettings.Issuer, _jwtSettings.Audience, claims,
+                    expires: DateTime.UtcNow.AddMinutes(10),
+                    signingCredentials: signIn);
 
                 loginResponse.token = new JwtSecurityTokenHandler().WriteToken(token);
                 loginResponse.userId = user.UserId.ToString();
@@ -67,8 +92,8 @@ namespace Ecommerce.Core.Services
                 loginResponse.position = user.Position.PositionName;
                 loginResponse.email = user.Email;
 
-                response.Message = "Login Success";
-                response.IsSuccess = true;
+                response.Message = Constants.StatusMessage.LoginSuccess;
+                response.IsSuccess = Constants.Status.True;
                 response.Value = loginResponse;
             }
             catch (Exception ex)
@@ -78,25 +103,24 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-
         public async Task<Response<LoginResponse>> Login(LoginRequest request)
         {
             var response = new Response<LoginResponse>();
             try
             {
                 var user = await _repository.GetAsync(x => x.Username == request.Username);
-                if (user != null && user.Status == "A")
+                if (user != null && user.Status == Constants.Status.Active)
                 {
                     request.Password = _common.Encrypt(request.Password);
                     if (user.Password == request.Password)
                         response = await GenerateToken(user);
                     else
-                        response.Message = "invaild password";
+                        response.Message = Constants.StatusMessage.InvaildPassword;
                 }
-                else if (user != null && user.Status == "I")
-                    response.Message = "user is InActive";
+                else if (user != null && user.Status == Constants.Status.Inactive)
+                    response.Message = Constants.StatusMessage.InActive;
                 else
-                    response.Message = "not found user";
+                    response.Message = Constants.StatusMessage.NotFoundUser;
             }
             catch (Exception ex)
             {
@@ -104,30 +128,28 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-
-        public async Task<Response<bool>> Register(RegisterRequest request)
+        public async Task<Response<string>> Register(RegisterRequest request)
         {
-            var response = new Response<bool>();
+            var response = new Response<string>();
             try
             {
                 var userExists = await _repository.GetAsync(x => x.Username == request.Username);
                 if (userExists != null)
                 {
-                    response.IsSuccess = false;
-                    response.Message = "user already exists";
+                    response.IsSuccess = Constants.Status.False;
+                    response.Message = Constants.StatusMessage.DuplicateUser;
                 }
                 else
                 {
                     request.Password = _common.Encrypt(request.Password);
-                    //request.PositionId = "08FE48BE-AC81-4983-9A0A-4EEB2972C947";
                     var user = await _repository.InsertAsync(_mapper.Map<User>(request)); // Insert Table User
                     if (user != null)
                     {
-                        var result = await _upRepository.InsertAsync(_mapper.Map<UserPosition>(user));
+                        var result = await _upRepository.InsertAsync(_mapper.Map<UserPosition>(user)); // Insert Table UserPosition
                         if (result != null)
                         {
-                            response.IsSuccess = true;
-                            response.Message = "register successfully";
+                            response.IsSuccess = Constants.Status.True;
+                            response.Message = Constants.StatusMessage.RegisterSuccess;
                         }
                     }
                 }
@@ -135,7 +157,7 @@ namespace Ecommerce.Core.Services
             catch (Exception ex)
             {
                 response.Message = ex.Message;
-                response.IsSuccess = false;
+                response.IsSuccess = Constants.Status.False;
             }
 
             return response;
