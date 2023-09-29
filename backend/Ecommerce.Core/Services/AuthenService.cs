@@ -49,7 +49,7 @@ namespace Ecommerce.Core.Services
                         new Claim("UserId", user.UserId.ToString())
                     };
                 var roles = await _upRepository.GetListAsync(x => x.UserId == user.UserId && x.Status == "A");
-                var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x.Position.PositionName));
+                var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, _common.GetPositionName(x.PositionId.ToString())));
                 claims.AddRange(roleClaims);
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));

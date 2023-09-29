@@ -10,7 +10,7 @@ namespace Ecommerce.Core.Services.Interfaces
     {
         string Encrypt(string text);
         string Decrypt(string text);
-        string GetPositionName(string code);
+        string GetPositionName(string id);
         string GetParameter(string code);
     }
 }

@@ -67,9 +67,10 @@ namespace Ecommerce.Core.Services
             throw new NotImplementedException();
         }
 
-        public string GetPositionName(string code)
+        public string GetPositionName(string id)
         {
-            throw new NotImplementedException();
+            var position = _postRespository.Get(x => x.PositionId == new Guid(id));
+            return position.PositionName;
         }
     }
 }
