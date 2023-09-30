@@ -8,6 +8,11 @@ namespace Ecommerce.Core.Helper
 {
     public class Constants
     {
+        public struct AppSettings
+        {
+            public const string Client_URL = "AppSettings:Client_URL";
+            public const string CorsPolicy = "AppSettings:CorsPolicy";
+        }
         public struct StatusMessage
         {
             public const string RegisterSuccess = "Register Successfully";

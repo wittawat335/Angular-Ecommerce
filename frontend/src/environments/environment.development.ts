@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  baseUrlApi: 'https://localhost:7261/api/',
+  baseUrlApi: 'http://localhost:5116/api/',
   keyLocalAuth: 'token',
 };

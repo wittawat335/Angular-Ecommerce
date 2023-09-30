@@ -1,4 +1,4 @@
 export interface Login {
-  email: String;
+  username: String;
   password: String;
 }

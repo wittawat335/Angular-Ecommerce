@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Ecommerce.Core.Helper;
 
 namespace Ecommerce.Core.DTOs
 {
@@ -14,7 +11,7 @@ namespace Ecommerce.Core.DTOs
         public string Email { get; set; }
         public string PositionId { get; set; }
         public string Address { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = Constants.Status.Active;
         public DateTime CreateDate { get; set; } = DateTime.Now;
     }
 }

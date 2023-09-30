@@ -8,7 +8,7 @@ import { authGuard } from './auth/auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'stock', component: StockHomeComponent, canActivate: [authGuard] },
+  { path: 'stock', component: StockHomeComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }, // for page not found
 ];

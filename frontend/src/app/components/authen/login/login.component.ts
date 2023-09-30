@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private utService: UtilityService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.email],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -37,15 +37,16 @@ export class LoginComponent implements OnInit {
     this.showLoading = true;
 
     const req: Login = {
-      email: this.loginForm.value.email,
+      username: this.loginForm.value.username,
       password: this.loginForm.value.password,
     };
 
     this.service.Login(req).subscribe({
       next: (data) => {
-        if (data.status) {
+        if (data.isSuccess) {
+          console.log(data);
           this.utService.setSessionUser(data.value);
-          this.router.navigate(['pages']);
+          this.router.navigate(['stock']);
         } else {
         }
       },

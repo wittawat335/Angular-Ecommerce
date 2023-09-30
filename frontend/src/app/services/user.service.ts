@@ -9,7 +9,7 @@ import { ResponseApi } from '../interfaces/response-api';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrlApi: string = environment.baseUrlApi + 'User';
+  private baseUrlApi: string = environment.baseUrlApi + 'Authen';
 
   constructor(private http: HttpClient) {}
 
