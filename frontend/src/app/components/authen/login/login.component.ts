@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem(environment.keyLocalAuth) != null)
-      this.router.navigateByUrl('/pages');
+      this.router.navigateByUrl('/stock');
   }
 
   LoginUser() {
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         if (data.isSuccess) {
           console.log(data);
           this.utService.setSessionUser(data.value);
-          this.router.navigate(['stock']);
+          this.router.navigateByUrl('/stock');
         } else {
         }
       },
