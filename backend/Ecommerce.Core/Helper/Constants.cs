@@ -17,8 +17,8 @@ namespace Ecommerce.Core.Helper
         {
             public const string RegisterSuccess = "Register Successfully";
             public const string LoginSuccess = "Login Successfully";
-            public const string InvaildPassword = "invaild password";
-            public const string NotFoundUser = "not found user";
+            public const string InvaildPassword = "รหัสผ่านไม่ถูกต้อง";
+            public const string NotFoundUser = "ไม่มีบัญชีผู้ใช่นี้";
             public const string Success = "OK";
             public const string No_Data = "No Data";
             public const string Could_Not_Create = "Could not create";

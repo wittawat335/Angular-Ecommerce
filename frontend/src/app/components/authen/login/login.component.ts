@@ -5,6 +5,7 @@ import { Login } from 'src/app/interfaces/login';
 import { UserService } from 'src/app/services/user.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { environment } from 'src/environments/environment.development';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem(environment.keyLocalAuth) != null)
-      this.router.navigateByUrl('/stock');
+      this.router.navigateByUrl('/pages/home');
   }
 
   LoginUser() {
@@ -44,10 +45,10 @@ export class LoginComponent implements OnInit {
     this.service.Login(req).subscribe({
       next: (data) => {
         if (data.isSuccess) {
-          console.log(data);
           this.utService.setSessionUser(data.value);
-          this.router.navigateByUrl('/stock');
+          this.router.navigateByUrl('/pages/home');
         } else {
+          Swal.fire(data.message);
         }
       },
       complete: () => {

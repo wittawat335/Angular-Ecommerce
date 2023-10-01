@@ -1,7 +1,8 @@
-﻿using Ecommerce.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.Infrastructure.DBContext;
+namespace Ecommerce.Domain.Entities;
 
 public partial class AngularEcommerceContext : DbContext
 {
@@ -13,6 +14,10 @@ public partial class AngularEcommerceContext : DbContext
         : base(options)
     {
     }
+
+    public virtual DbSet<Menu> Menus { get; set; }
+
+    public virtual DbSet<MenuPosition> MenuPositions { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -27,9 +32,60 @@ public partial class AngularEcommerceContext : DbContext
     public virtual DbSet<UserPosition> UserPositions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    { }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-6LMV7V4\\SQLEXPRESS;Database=Angular_Ecommerce;Trusted_Connection=True;MultipleActiveResultSets=True;User ID=sa;Password=P@ssw0rd;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Menu>(entity =>
+        {
+            entity.HasKey(e => e.MenuId).HasName("PK__Menu__C99ED230DF2AF6CA");
+
+            entity.ToTable("Menu");
+
+            entity.Property(e => e.MenuId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Icon)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.MenuName)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.ParentCode)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.Url)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<MenuPosition>(entity =>
+        {
+            entity.HasKey(e => e.MenuPositionId).HasName("PK__MenuPosi__B56399D0A1402B71");
+
+            entity.ToTable("MenuPosition");
+
+            entity.Property(e => e.MenuPositionId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Status)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength();
+
+            entity.HasOne(d => d.Menu).WithMany(p => p.MenuPositions)
+                .HasForeignKey(d => d.MenuId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MenuPosition_Menu");
+
+            entity.HasOne(d => d.Position).WithMany(p => p.MenuPositions)
+                .HasForeignKey(d => d.PositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MenuPosition_Position");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.OrderItemId).HasName("PK__Order__57ED06817D0DBC55");

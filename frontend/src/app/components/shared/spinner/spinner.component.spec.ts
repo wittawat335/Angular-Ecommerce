@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StockEditComponent } from './stock-edit.component';
+import { SpinnerComponent } from './spinner.component';
 
-describe('StockEditComponent', () => {
-  let component: StockEditComponent;
-  let fixture: ComponentFixture<StockEditComponent>;
+describe('SpinnerComponent', () => {
+  let component: SpinnerComponent;
+  let fixture: ComponentFixture<SpinnerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StockEditComponent]
+      declarations: [SpinnerComponent]
     });
-    fixture = TestBed.createComponent(StockEditComponent);
+    fixture = TestBed.createComponent(SpinnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

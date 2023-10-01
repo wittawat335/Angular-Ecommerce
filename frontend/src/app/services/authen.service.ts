@@ -26,11 +26,4 @@ export class AuthenService {
       headers: this.headers,
     });
   }
-
-  isLoggedIn(): boolean {
-    const authenInfo = JSON.parse(
-      localStorage.getItem(environment.keyLocalAuth) || ''
-    );
-    return authenInfo != null;
-  }
 }

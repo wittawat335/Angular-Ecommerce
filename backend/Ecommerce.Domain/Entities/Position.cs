@@ -13,6 +13,8 @@ public partial class Position
 
     public DateTime? CreateDate { get; set; }
 
+    public virtual ICollection<MenuPosition> MenuPositions { get; set; } = new List<MenuPosition>();
+
     public virtual ICollection<UserPosition> UserPositions { get; set; } = new List<UserPosition>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
