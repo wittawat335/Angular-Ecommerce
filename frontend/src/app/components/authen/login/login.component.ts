@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/interfaces/login';
-import { UserService } from 'src/app/services/user.service';
+import { AuthenService } from 'src/app/services/authen.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private service: UserService,
+    private service: AuthenService,
     private utService: UtilityService
   ) {
     this.loginForm = this.fb.group({
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password,
     };
 
-    this.service.Login(req).subscribe({
+    this.service.login(req).subscribe({
       next: (data) => {
         if (data.isSuccess) {
           this.utService.setSessionUser(data.value);

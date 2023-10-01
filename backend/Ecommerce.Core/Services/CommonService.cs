@@ -15,7 +15,7 @@ namespace Ecommerce.Core.Services
             _postRespository = postRespository;
         }
 
-        public string Decrypt(string text)
+        public string Decrypt(string text) // ใช้ถอดรหัส
         {
             string encryptionKey = "MAKV2SPBNI99212";
             byte[] cipherBytes = Convert.FromBase64String(text);
@@ -38,7 +38,7 @@ namespace Ecommerce.Core.Services
             return text;
         }
 
-        public string Encrypt(string text)
+        public string Encrypt(string text) // ใช้แปลงรหัส
         {
             string encryptionKey = "MAKV2SPBNI99212";
             byte[] clearBytes = Encoding.Unicode.GetBytes(text);

@@ -15,10 +15,10 @@ namespace Ecommerce.Core.Helper
         }
         public struct StatusMessage
         {
-            public const string RegisterSuccess = "Register Successfully";
-            public const string LoginSuccess = "Login Successfully";
+            public const string RegisterSuccess = "ลงทะเบียนสำเร็จ";
+            public const string LoginSuccess = "เข้าสู่ระบบสำเร็จ";
             public const string InvaildPassword = "รหัสผ่านไม่ถูกต้อง";
-            public const string NotFoundUser = "ไม่มีบัญชีผู้ใช่นี้";
+            public const string NotFoundUser = "ไม่มีบัญชีผู้ใช้นี้";
             public const string Success = "OK";
             public const string No_Data = "No Data";
             public const string Could_Not_Create = "Could not create";
@@ -40,6 +40,13 @@ namespace Ecommerce.Core.Helper
             public static string ActiveText = "Active";
             public static string Inactive = "I";
             public static string InactiveText = "Inactive";
+        }
+
+        public struct PositionId
+        {
+            public static string Administrator = "08FE48BE-AC81-4983-9A0A-4EEB2972C947";
+            public static string User = "A06B5B8E-F94A-4DBA-A82E-D70F439548CF";
+            public static string Customer = "5FAB735A-A4CB-4EF3-BFD2-1FFC3BC37821";
         }
     }
 }

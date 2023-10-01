@@ -111,8 +111,7 @@ namespace Ecommerce.Core.Services
                 var user = await _repository.GetAsync(x => x.Username == request.Username);
                 if (user != null && user.Status == Constants.Status.Active)
                 {
-                    request.Password = _common.Encrypt(request.Password);
-                    if (user.Password == request.Password)
+                    if (_common.Decrypt(user.Password) == request.Password)
                         response = await GenerateToken(user);
                     else
                         response.Message = Constants.StatusMessage.InvaildPassword;
@@ -142,6 +141,7 @@ namespace Ecommerce.Core.Services
                 else
                 {
                     request.Password = _common.Encrypt(request.Password);
+                    request.PositionId = Constants.PositionId.Customer;
                     var user = await _repository.InsertAsync(_mapper.Map<User>(request)); // Insert Table User
                     if (user != null)
                     {

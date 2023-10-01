@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Ecommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.Domain.Entities;
+namespace Ecommerce.Infrastructure.DBContext;
 
 public partial class AngularEcommerceContext : DbContext
 {

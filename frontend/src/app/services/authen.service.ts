@@ -16,14 +16,10 @@ export class AuthenService {
   constructor(private http: HttpClient) {}
 
   login(data: Login): Observable<ResponseApi> {
-    return this.http.post<ResponseApi>(`${this.baseUrlApi}/login`, data, {
-      headers: this.headers,
-    });
+    return this.http.post<ResponseApi>(`${this.baseUrlApi}/Login`, data);
   }
 
   regsiter(data: Register): Observable<ResponseApi> {
-    return this.http.post<ResponseApi>(`${this.baseUrlApi}/register`, data, {
-      headers: this.headers,
-    });
+    return this.http.post<ResponseApi>(`${this.baseUrlApi}/Register`, data);
   }
 }

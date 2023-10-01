@@ -7,7 +7,7 @@
                 <img src="assets/images/img-01.png" alt="IMG">
             </div>
 
-            <form class="login100-form validate-form">
+            <form [formGroup]="registerForm" (ngSubmit)="registerUser()" class="login100-form validate-form">
 
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" formControlName="username" type="text" name="username"
